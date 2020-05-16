@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+export MSYS_NO_PATHCONV=1
+
 eval $(docker-machine env swarm-test-1)
 
 docker service create --name registry \
@@ -21,7 +23,7 @@ export DOCKER_IP=$(docker-machine ip swarm-test-1)
 docker-compose -f docker-compose-proxy.yml \
     up -d consul-server
 
-export CONSUL_SERVER_IP=$(docker-machine ip swarm-1)
+export CONSUL_SERVER_IP=$(docker-machine ip swarm-test-1)
 
 for i in 2 3; do
     eval $(docker-machine env swarm-test-$i)
